@@ -26,6 +26,14 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    # class Meta:
+    #     ordering = ['-id']
+
+    def save(self, *args, **kwargs):  # перед тем чтобы сохранить ...
+        print(self.title)
+        self.title += ' 8.12'
+        return super().save(*args, **kwargs)
+
 
 class Comment(models.Model):
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='comments', null=True)
@@ -36,5 +44,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.owner.username} - {self.post.title}'
-
-
