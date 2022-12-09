@@ -17,9 +17,23 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+
+# для документации
+schema_view = get_schema_view(
+    openapi.Info(
+        title='Python 24',
+        default_version='v1',
+        description='Blog'
+    ),
+    public=True
+)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/v1/account/', include('applications.account.urls')),
-    path('api/v1/post/', include('applications.post.urls'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('admin/', admin.site.urls),
+                  path('swagger/', schema_view.with_ui('swagger')),
+                  # вывед графически /документация url чтобы js-ники могли работать
+                  path('api/v1/account/', include('applications.account.urls')),
+                  path('api/v1/post/', include('applications.post.urls'))
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # для картинок

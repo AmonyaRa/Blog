@@ -1,8 +1,9 @@
 django
-djangorestframework
-psycopg2-binary
-python-decouple
-Pillow
-djangorestframework-simplejwt
-dj-config-url
+djangorestframework  # работа с сервером
+psycopg2-binary # с БД
+python-decouple # приватность
+Pillow # картинка
+djangorestframework-simplejwt  # токен
+dj-config-url # в одну строчку написать БД
 django-filter
+drf-yasg # документация

@@ -13,3 +13,15 @@ class IsOwner(BasePermission):
         if request.method in SAFE_METHODS:
             return True
         return request.user.is_authenticated and (request.user == obj.owner or request.user.is_staff)
+
+
+class IsCommentOwner(BasePermission):
+    # Create , List
+    def has_permission(self, request, view):
+        return request.user.is_authenticated  # передал ли токен
+
+    # Retrieve, Update, Delete
+    def has_object_permission(self, request, view, obj):
+        if request.method in ['PUT', 'PATCH']:
+            return request.user.is_authenticated and (request.user == obj.owner or request.user.is_staff)
+        return request.user.is_authenticated and (request.user == obj.owner or request.user.is_staff)
